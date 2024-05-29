@@ -1,4 +1,3 @@
-// src/components/chat-box.tsx
 import React from 'react';
 import { Message } from '../models/message';
 import MessageComponent from './message';
@@ -11,11 +10,11 @@ interface ChatBoxProps {
 
 const ChatBox: React.FC<ChatBoxProps> = ({ messages, onSendMessage }) => {
     const handleSendMessage = (message: string) => {
-        onSendMessage(message, false);  // This message is from the user
+        onSendMessage(message, false);  // User message
         setTimeout(() => {
-            onSendMessage('This is a static response.', true);  // This message is from the AI
+            onSendMessage('This is a static response.', true);  // AI response
         }, 500);
-    };
+    }; 
 
     return (
         <div className="chat-box">
