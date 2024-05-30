@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '../config/font-awesome';
 interface ChatSidebarProps {
     chats: string[];
     onSelectChat: (index: number) => void;
-    onNewChat: () => void;
+    // onNewChat: () => void;
 }
 
-const ChatSidebar: React.FC<ChatSidebarProps> = ({ chats, onSelectChat, onNewChat }) => {
+const ChatSidebar: React.FC<ChatSidebarProps> = ({ chats, onSelectChat }) => {
     return (
         <div>
             <ul className="chat-list">
