@@ -12,12 +12,12 @@ interface ChatBoxProps {
 }
 
 const ChatBox: React.FC<ChatBoxProps> = ({ chatId, messages, onSendMessage }) => {
-    const { messages: wsMessages, sendMessage: sendWsMessage } = useWebSocket(chatId);
+    // const { messages: wsMessages, sendMessage: sendWsMessage } = useWebSocket(chatId);
     const [ suggestions ] = useState<string[]>(["Recommend Resources", "Eludicate my answer"]);
     const handleSendMessage = async (message: string) => {
         const userMessage: Message = { text: message, isResponse: false };
         onSendMessage(chatId, userMessage);
-        sendWsMessage(message);
+        // sendWsMessage(message);
         try {
             const response = await sendApiMessage(chatId, message);
             const aiMessages = response.messages.filter((msg: any) => msg.sender === 'ai');
@@ -25,7 +25,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ chatId, messages, onSendMessage }) =>
             if (latestAiMessage) {
                 const aiMessage: Message = { text: latestAiMessage.content, isResponse: true };
                 onSendMessage(chatId, aiMessage);
-                sendWsMessage(latestAiMessage.content);
+                // sendWsMessage(latestAiMessage.content);
             }
         } catch (error) {
             console.error('Error sending message:', error);
@@ -38,7 +38,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ chatId, messages, onSendMessage }) =>
 
     const allMessages = [
         ...messages.map((msg) => ({ ...msg, isResponse: msg.isResponse })),
-        ...wsMessages.map((msg) => ({ text: msg, isResponse: true })),
+        // ...wsMessages.map((msg) => ({ text: msg, isResponse: true })),
     ];
 
     const lastMessageIndex = allMessages.length - 1;
