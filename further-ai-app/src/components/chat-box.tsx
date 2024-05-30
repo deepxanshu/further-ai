@@ -3,7 +3,6 @@ import { Message } from '../models/message';
 import MessageComponent from './message';
 import InputBox from './input-box';
 import useWebSocket from '../hooks/useWebSocket';
-import { sendMessage as sendApiMessage } from '../api';
 
 interface ChatBoxProps {
     chatId: number;
@@ -13,27 +12,16 @@ interface ChatBoxProps {
 
 const ChatBox: React.FC<ChatBoxProps> = ({ chatId, messages, onSendMessage }) => {
     const { messages: wsMessages, sendMessage: sendWsMessage } = useWebSocket(chatId);
+
     const handleSendMessage = async (message: string) => {
         const userMessage: Message = { text: message, isResponse: false };
         onSendMessage(chatId, userMessage);
-        sendWsMessage(message);
-        try {
-            const response = await sendApiMessage(chatId, message);
-            const aiMessages = response.messages.filter((msg: any) => msg.sender === 'ai');
-            const latestAiMessage = aiMessages[aiMessages.length - 1];
-            if (latestAiMessage) {
-                const aiMessage: Message = { text: latestAiMessage.content, isResponse: true };
-                onSendMessage(chatId, aiMessage);
-                sendWsMessage(latestAiMessage.content);
-            }
-        } catch (error) {
-            console.error('Error sending message:', error);
-        }
+        sendWsMessage(message);  // Send via WebSocket
     };
 
     const allMessages = [
-        ...messages.map((msg) => ({ ...msg, isResponse: msg.isResponse })),
-        ...wsMessages.map((msg) => ({ text: msg, isResponse: true })),
+        ...messages,
+        ...wsMessages,
     ];
 
     return (

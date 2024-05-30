@@ -38,7 +38,7 @@ const Home: React.FC = () => {
             <div className="chat-area">
                 <Header title={`Chat ${activeChat}`} />
                 <ChatBox
-                    chatId={activeChat}
+                    chatId={activeChat+1}
                     messages={chats[activeChat]}
                     onSendMessage={handleSendMessage}
                 />
