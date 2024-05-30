@@ -20,7 +20,7 @@ Instructions to Run
 
 	3. 	Navigate to /backend -- rename .env-sample to .env and put your OPEN AI keys.
 
-The application will be accessible at http://localhost:3000.
+The application will be accessible at https://further-ai.vercel.app/ or http://localhost:3000 (locally)
 
 Summary of Changes
 
