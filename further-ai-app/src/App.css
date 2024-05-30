@@ -244,3 +244,46 @@
 .copy-popup p {
   margin: 0;
 }
+
+.suggestion-box {
+  margin-top: 30px;
+  margin-left: 60px; /* Adjust as needed for alignment */
+}
+
+.suggestions {
+  display: flex;
+  gap: 10px;
+}
+
+.suggestion-button {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
+.suggestion-button:hover {
+  background-color: #ddd;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-left: 60px; /* Align to the left with some margin */
+}
+
+.action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+}
+
+.action-button.active {
+  color: #000; /* Change color when active */
+}
+
+.action-button:hover {
+  color: #000;
+}
