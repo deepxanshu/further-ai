@@ -3,40 +3,42 @@ import Header from '../components/header';
 import ChatSidebar from '../components/chat-side-bar';
 import ChatBox from '../components/chat-box';
 import { Message } from '../models/message';
-import logo from '../assests/further-ai-logo.svg'
+import logo from '../assests/further-ai-logo.svg';
 import { FontAwesomeIcon } from '../config/font-awesome';
 
 const Home: React.FC = () => {
-    const [chats, setChats] = useState<Message[][]>([[]]);
-    const [activeChat, setActiveChat] = useState(0);
-
-    const handleSendMessage = (message: string, isResponse: boolean = false) => {
-        const newChats = [...chats];
-        newChats[activeChat].push({ text: message, isResponse });
-        setChats(newChats);
-    };
+    const [chats, setChats] = useState<Record<number, Message[]>>({ 1: [] });
+    const [activeChat, setActiveChat] = useState(1);
 
     const handleNewChat = () => {
-        setChats([...chats, []]);
-        setActiveChat(chats.length);
+        const newChatId = Object.keys(chats).length + 1;
+        setChats({ ...chats, [newChatId]: [] });
+        setActiveChat(newChatId);
+    };
+
+    const handleSendMessage = (chatId: number, message: Message) => {
+        setChats(prevChats => ({
+            ...prevChats,
+            [chatId]: [...prevChats[chatId], message]
+        }));
     };
 
     return (
         <div className="home">
             <div className="sidebar">
                 <div className="logo-newchat">
-                    <img src={logo} alt="Further AI" className="logo" />
+                    <img src={logo} alt="Further AI" className="logo" onClick={() => window.location.href = 'https://www.furtherai.com/'} />
                     <button onClick={handleNewChat} className="new-chat-button"><FontAwesomeIcon icon="plus" size='lg'/></button>
                 </div>
                 <ChatSidebar
-                    chats={chats.map((_, index) => `Chat ${index + 1}`)}
-                    onSelectChat={setActiveChat}
-                    onNewChat={handleNewChat}
+                    chats={Object.keys(chats).map((id) => `Chat ${id}`)}
+                    onSelectChat={(chatIndex) => setActiveChat(Number(chatIndex) + 1)}
                 />
             </div>
             <div className="chat-area">
-                <Header title={`Chat ${activeChat + 1}`} />
+                <Header title={`Chat ${activeChat}`} />
                 <ChatBox
+                    chatId={activeChat}
                     messages={chats[activeChat]}
                     onSendMessage={handleSendMessage}
                 />
@@ -46,3 +48,5 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+
