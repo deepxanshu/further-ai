@@ -11,12 +11,14 @@ Instructions to Run
 	1.	Backend:
 	•	Navigate to the backend directory.
 	•	Install dependencies: pip install -r requirements.txt.
-	•	Run the server: uvicorn main:app --reload.
+	•	Run the server: uvicorn src.main:app --reload.
 
 	2.	Frontend:
 	•	Navigate to the frontend directory.
 	•	Install dependencies: npm install.
 	•	Start the application: npm start.
+
+	3. 	Navigate to /backend -- rename .env-sample to .env and put your OPEN AI keys.
 
 The application will be accessible at http://localhost:3000.
 
